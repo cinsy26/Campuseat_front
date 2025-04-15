@@ -16,8 +16,8 @@ const VerifyButton = ({label, onPress}: Props) => {
 
 const styles = StyleSheet.create({
   button: {
-    width: 80,
-    height: 40,
+    width: 300,
+    height: 50,
     backgroundColor: '#C86462',
     justifyContent: 'center',
     alignItems: 'center',
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 12,
-    fontWeight: 'bold',
+    fontSize: 17,
+    fontWeight: 'normal',
   },
 });
 
