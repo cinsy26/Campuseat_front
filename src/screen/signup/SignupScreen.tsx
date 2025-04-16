@@ -6,6 +6,8 @@ import SafeContainer from '../SafeContainer';
 import UserInput from '../../components/share/UserInput';
 import VerifyButton from '../../components/user/VerifyButton';
 import EmailVerify from '../../components/Signup/EmailVerify';
+import BasicInfo from '../../components/Signup/BasicInfo';
+import Password from '../../components/Signup/Password';
 
 const SignupScreen = () => {
   return (
@@ -14,6 +16,8 @@ const SignupScreen = () => {
 
       <View style={styles.container}>
         <EmailVerify />
+        <BasicInfo />
+        <Password />
       </View>
     </SafeContainer>
   );

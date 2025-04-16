@@ -19,9 +19,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     //justifyContent: 'center', // 세로 가운데 정렬
-    alignItems: 'center', // 가로 가운데 정렬
-    paddingHorizontal: 16,
-    paddingTop: 50, // 👈 원하는 만큼 여백을 주면 돼 (ex. 24 or 32)
+    //alignItems: 'center', // 가로 가운데 정렬
+    //paddingTop: 50, // 👈 원하는 만큼 여백을 주면 돼 (ex. 24 or 32)
   },
 });
 
