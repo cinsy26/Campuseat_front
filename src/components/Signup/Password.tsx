@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   container: {
     gap: 20,
     alignItems: 'center',
-    borderWidth: 1, // 테두리 두께
+    //borderWidth: 1, // 테두리 두께
     borderColor: '#C86462', // 테두리 색상
   },
   title: {

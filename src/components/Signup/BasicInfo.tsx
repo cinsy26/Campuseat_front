@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
     gap: 8, // RN 0.71 이상 지원. 아니면 marginLeft로
   },
   container: {
-    height: '40%',
+    //height: '40%',
     width: '100%',
     gap: 20,
     alignItems: 'center',
 
-    backgroundColor: '#C86462',
+    //backgroundColor: '#C86462',
   },
   title: {
     fontSize: 20,
