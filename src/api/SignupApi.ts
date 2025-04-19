@@ -25,3 +25,21 @@ export const checkVerificationCode = async (email: string, code: string) => {
     throw error.response?.data || {message: '인증번호 확인 실패'};
   }
 };
+
+export const Signup = async (
+  email: string,
+  password: string,
+  nickname: string,
+) => {
+  try {
+    const response = await axios.post('/api/user/signup', {
+      email,
+      password,
+      nickname,
+    });
+    return response.data;
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    throw err.response?.data || {message: '회원가입 실패'};
+  }
+};

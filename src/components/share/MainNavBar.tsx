@@ -2,10 +2,10 @@ import React from 'react';
 import {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-import HomeIcon from '../../assets/MainNavBarIcon/home.tsx';
-import MenuIcon from '../../assets/MainNavBarIcon/menu.tsx';
-import ReportIcon from '../../assets/MainNavBarIcon/report.tsx';
-import MypageIcon from '../../assets/MainNavBarIcon/mypage.tsx';
+import HomeIcon from '../../assets/icon/MainNavBarIcon/home.tsx';
+import MenuIcon from '../../assets/icon/MainNavBarIcon/menu.tsx';
+import ReportIcon from '../../assets/icon/MainNavBarIcon/report.tsx';
+import MypageIcon from '../../assets/icon/MainNavBarIcon/mypage.tsx';
 
 const MainNavBar = () => {
   return (

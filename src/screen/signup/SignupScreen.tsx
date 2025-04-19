@@ -1,24 +1,49 @@
 // SignupScreen.tsx
 import React from 'react';
 import {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 import SafeContainer from '../SafeContainer';
-import UserInput from '../../components/share/UserInput';
-import VerifyButton from '../../components/user/VerifyButton';
+
 import EmailVerify from '../../components/Signup/EmailVerify';
 import BasicInfo from '../../components/Signup/BasicInfo';
 import Password from '../../components/Signup/Password';
-import PreviousIcon from '../../assets/User/Left';
-import NextIcon from '../../assets/User/Right';
+import PreviousIcon from '../../assets/icon/User/Left';
+import NextIcon from '../../assets/icon/User/Right';
+import {Alert} from 'react-native';
+
+import {Signup} from '../../api/SignupApi';
 
 const SignupScreen = () => {
   const [step, setStep] = useState(1); // 현재 단계 (1~3)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+
+  const handleSignup = async (nick: string) => {
+    setNickname(nick);
+    try {
+      const result = await Signup(email, password, nick);
+      Alert.alert(
+        '회원가입 성공',
+        result.message || '회원가입이 완료되었습니다.',
+      );
+    } catch (error: any) {
+      Alert.alert('회원가입 실패', error.message || '오류가 발생했습니다.');
+    }
+  };
 
   const renderStepComponent = () => {
-    if (step === 1) return <EmailVerify />;
-    if (step === 2) return <Password />;
-    if (step === 3) return <BasicInfo />;
+    if (step === 1) {
+      return <EmailVerify email={email} setEmail={setEmail} />;
+    }
+    if (step === 2) {
+      return <Password onSubmit={(pw: string) => setPassword(pw)} />;
+    }
+    if (step === 3) {
+      return <BasicInfo onSubmit={handleSignup} />;
+    }
+
     return null;
   };
 

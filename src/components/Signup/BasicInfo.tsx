@@ -5,7 +5,11 @@ import {View, Text, StyleSheet} from 'react-native';
 import UserInput from '../share/UserInput';
 import VerifyButton from '../user/VerifyButton';
 
-const BasicInfo = () => {
+type BasicInfoProps = {
+  onSubmit: (nickname: string) => void;
+};
+
+const BasicInfo = ({onSubmit}: BasicInfoProps) => {
   const [nickname, setNickname] = useState('');
   return (
     <View style={styles.container}>
@@ -15,8 +19,12 @@ const BasicInfo = () => {
       <UserInput
         value={nickname}
         onChangeText={setNickname}
-        secureTextEntry={true}
         placeholder="닉네임 입력"
+      />
+      <VerifyButton
+        label="회원가입"
+        onPress={() => onSubmit(nickname)}
+        disabled={nickname.length < 2}
       />
     </View>
   );

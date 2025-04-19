@@ -6,11 +6,17 @@ import UserInput from '../share/UserInput';
 import VerifyButton from '../user/VerifyButton';
 
 import {verifyEmail, checkVerificationCode} from '../../api/SignupApi';
-const EmailVerify = () => {
-  const [email, setEmail] = useState('');
+
+type Props = {
+  email: string;
+  setEmail: (email: string) => void;
+};
+
+const EmailVerify = ({email, setEmail}: Props) => {
   const [verifycode, setVerifyCode] = useState(''); //인증번호 상태 저장
   const [status, setStatus] = useState(''); //현재 진행 상황
-  const [isCodeSent, setIsCodeSent] = useState(false);
+  const [statusType, setStatusType] = useState<'success' | 'error' | ''>('');
+  const [isCodeSent, setIsCodeSent] = useState(false); //인증번호 전송 여부
 
   // 이메일 인증번호 요청
   const handleVerify = async () => {
@@ -18,9 +24,11 @@ const EmailVerify = () => {
       const result = await verifyEmail(email);
       setStatus(result.message);
       setIsCodeSent(true); // 버튼 전환
+      setStatusType('success');
       console.log('인증번호 발송 성공:', result);
     } catch (err: any) {
       setStatus(err.message || '이메일 인증 실패');
+      setStatusType('error'); // 에러
       console.error('이메일 인증 실패:', err);
     }
   };
@@ -30,10 +38,13 @@ const EmailVerify = () => {
     try {
       const result = await checkVerificationCode(email, verifycode);
       setStatus(result.message);
+      setStatusType('success'); // 성공
+
       console.log('인증번호 확인 성공:', result);
     } catch (err: any) {
       setStatus(err.message || '인증번호 확인 실패');
       console.error('인증번호 확인 실패:', err);
+      setStatusType('error'); // 에러
     }
   };
 
@@ -48,26 +59,28 @@ const EmailVerify = () => {
         keyboardType="email-address"
         placeholder="웹메일을 입력해주세요"
       />
-      <UserInput
-        value={verifycode}
-        onChangeText={setVerifyCode}
-        keyboardType="email-address"
-        placeholder="인증번호를 입력해주세요"
-      />
-      <VerifyButton
-        label={isCodeSent ? '인증번호 확인' : '확인'}
-        onPress={() => {
-          if (isCodeSent) {
-            console.log('인증번호 확인 요청:', email, verifycode);
-            handleCheckCode();
-          } else {
-            console.log('이메일 인증 요청 시작:', email);
-            handleVerify();
-          }
-        }}
-      />
+      {!isCodeSent && <VerifyButton label="확인" onPress={handleVerify} />}
 
-      <Text style={styles.message}>{status}</Text>
+      {isCodeSent && (
+        <>
+          <UserInput
+            value={verifycode}
+            onChangeText={setVerifyCode}
+            keyboardType="numeric"
+            placeholder="인증번호를 입력해주세요"
+          />
+          <VerifyButton label="인증번호 확인" onPress={handleCheckCode} />
+        </>
+      )}
+
+      <Text
+        style={[
+          styles.message,
+          statusType === 'error' && styles.error,
+          statusType === 'success' && styles.success,
+        ]}>
+        {status}
+      </Text>
     </View>
   );
 };
@@ -97,5 +110,11 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 16,
     fontWeight: 'normal',
+  },
+  error: {
+    color: '#FA7C79',
+  },
+  success: {
+    color: '#3AAF85', // 초록색 계열
   },
 });
