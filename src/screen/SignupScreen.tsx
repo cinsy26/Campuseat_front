@@ -2,23 +2,29 @@
 import React from 'react';
 import {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../navigator/types'; // ← 위에서 만든 타입 가져오기
 
-import SafeContainer from '../SafeContainer';
+import SafeContainer from './SafeContainer';
 
-import EmailVerify from '../../components/Signup/EmailVerify';
-import BasicInfo from '../../components/Signup/BasicInfo';
-import Password from '../../components/Signup/Password';
-import PreviousIcon from '../../assets/icon/User/Left';
-import NextIcon from '../../assets/icon/User/Right';
+import EmailVerify from '../components/Signup/EmailVerify';
+import BasicInfo from '../components/Signup/BasicInfo';
+import Password from '../components/Signup/Password';
+import PreviousIcon from '../assets/icon/User/Left';
+import NextIcon from '../assets/icon/User/Right';
 import {Alert} from 'react-native';
 
-import {Signup} from '../../api/SignupApi';
+import {Signup} from '../api/SignupApi';
+type Navigation = NativeStackNavigationProp<RootStackParamList, 'Signup'>;
 
 const SignupScreen = () => {
   const [step, setStep] = useState(1); // 현재 단계 (1~3)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
+
+  const navigation = useNavigation<Navigation>();
 
   const handleSignup = async (nick: string) => {
     setNickname(nick);
@@ -27,6 +33,14 @@ const SignupScreen = () => {
       Alert.alert(
         '회원가입 성공',
         result.message || '회원가입이 완료되었습니다.',
+        [
+          {
+            text: '확인',
+            onPress: () => {
+              navigation.navigate('Login');
+            },
+          },
+        ],
       );
     } catch (error: any) {
       Alert.alert('회원가입 실패', error.message || '오류가 발생했습니다.');
