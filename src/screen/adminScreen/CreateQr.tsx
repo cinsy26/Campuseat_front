@@ -7,12 +7,15 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  Alert,
 } from 'react-native';
 import AdminLayout from './AdminLayout';
 import LabeledItem from '../../components/CreateQr/LabeledItem';
 
 import UserInput from '../../components/share/UserInput';
 import VerifyButton from '../../components/user/VerifyButton';
+
+import {createQR} from '../../api/admin';
 
 export default function CreateQr() {
   const [buildingName, setBuildingName] = useState('');
@@ -69,8 +72,25 @@ export default function CreateQr() {
             <VerifyButton
               label="QR 코드 생성"
               onPress={async () => {
-                console.log('QR 코드 생성 버튼 클릭됨');
-                // 여기에 QR 코드 생성 로직 추가
+                try {
+                  await createQR({
+                    buildingName,
+                    locationName,
+                    seatCount: parseInt(seatCount),
+                    email,
+                  });
+                  Alert.alert(
+                    '성공',
+                    'QR PDF 생성 요청이 완료되었습니다. 이메일을 확인해주세요.',
+                  );
+                } catch (err: any) {
+                  console.error('❌ QR 생성 실패:', err);
+
+                  Alert.alert(
+                    '오류',
+                    err.message || 'QR 생성 중 오류가 발생했습니다.',
+                  );
+                }
               }}
             />
           </View>
