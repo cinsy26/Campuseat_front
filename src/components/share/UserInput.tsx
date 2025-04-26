@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, StyleSheet} from 'react-native';
+import {TextInput, StyleSheet, DimensionValue} from 'react-native';
 
 type Props = {
   //UserInput 컴포넌트가 받는 값들은 이런 형태여야 한다.
@@ -9,6 +9,7 @@ type Props = {
   secureTextEntry?: boolean;
   keyboardType?: 'default' | 'email-address' | 'numeric' | 'phone-pad';
   placeholder?: string;
+  width?: DimensionValue;
 };
 
 const UserInput = ({
@@ -17,10 +18,11 @@ const UserInput = ({
   secureTextEntry = false,
   keyboardType = 'default',
   placeholder = '입력하세요',
+  width = 300,
 }: Props) => {
   return (
     <TextInput
-      style={styles.input}
+      style={[styles.input, {width}]}
       value={value}
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}

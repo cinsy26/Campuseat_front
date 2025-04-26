@@ -10,9 +10,12 @@ import VerifyButton from '../components/user/VerifyButton';
 
 import CampuSeat from '../assets/logo/CampuSeat.svg';
 
+import {login} from '../api/Login';
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); //로그인 에러 메시지
 
   type LoginScreenNavigationProp = NativeStackNavigationProp<
     RootStackParamList,
@@ -40,13 +43,21 @@ export default function Login() {
               placeholder="비밀번호를 입력하세요"
               secureTextEntry={true}
             />
-            <Text style={styles.message} />
+            <Text style={styles.message}>{errorMessage}</Text>{' '}
           </View>
           <View style={styles.buttonwrapper}>
             <VerifyButton
               label="로그인"
-              onPress={() => {
-                console.log('로그인 버튼 클릭됨');
+              onPress={async () => {
+                try {
+                  setErrorMessage(''); // 이전 에러 초기화
+                  const result = await login(email, password);
+                  console.log('로그인 성공:', result);
+                  navigation.navigate('Home');
+                } catch (err: any) {
+                  console.error('로그인 실패:', err.message);
+                  setErrorMessage(err.message);
+                }
               }}
             />
 

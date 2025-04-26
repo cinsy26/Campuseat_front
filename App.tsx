@@ -10,6 +10,8 @@ import SignupScreen from './src/screen/SignupScreen';
 import Home from './src/screen/Home';
 import Login from './src/screen/Login';
 
+import CreateQr from './src/screen/adminScreen/CreateQr';
+
 const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
@@ -18,10 +20,13 @@ function App(): React.JSX.Element {
       <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName="CreateQr"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={Home} />
+
+          <Stack.Screen name="CreateQr" component={CreateQr} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
