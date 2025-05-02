@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 import {
   View,
-  Text,
+  //Text,
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
@@ -10,7 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import AdminLayout from './AdminLayout';
-import LabeledItem from '../../components/CreateQr/LabeledItem';
+import LabeledItem from '../../components/createQr/LabeledItem';
 
 import UserInput from '../../components/share/UserInput';
 import VerifyButton from '../../components/user/VerifyButton';

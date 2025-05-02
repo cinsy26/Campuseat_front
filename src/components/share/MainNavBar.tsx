@@ -6,6 +6,7 @@ import HomeIcon from '../../assets/icon/MainNavBarIcon/home.tsx';
 import MenuIcon from '../../assets/icon/MainNavBarIcon/menu.tsx';
 import ReportIcon from '../../assets/icon/MainNavBarIcon/report.tsx';
 import MypageIcon from '../../assets/icon/MainNavBarIcon/mypage.tsx';
+import CameraIcon from '../../assets/icon/MainNavBarIcon/camera.tsx';
 
 const MainNavBar = () => {
   return (
@@ -15,6 +16,9 @@ const MainNavBar = () => {
       </View>
       <View style={styles.tab}>
         <MenuIcon width={30} height={30} />
+      </View>
+      <View style={styles.tab}>
+        <CameraIcon width={30} height={30} />
       </View>
       <View style={styles.tab}>
         <ReportIcon width={26} height={26} />
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   tab: {
-    width: '25%',
+    width: '20%',
     height: 60,
     //borderWidth: 1, // 테두리 두께
     justifyContent: 'center', // 세로 중앙 정렬

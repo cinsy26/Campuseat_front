@@ -1,12 +1,11 @@
 import React from 'react';
-import {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+//import {useState} from 'react';
+import {View, /*Text,*/ StyleSheet} from 'react-native';
 import SafeContainer from './SafeContainer';
 
-import HomeInfo from '../components/Home/HomeInfo';
-import HomeUsageHistory from '../components/Home/UsageHistory';
+import HomeInfo from '../components/home/HomeInfo';
 import MainNavBar from '../components/share/MainNavBar';
-import HomeUsageHisotry from '../components/Home/UsageHistory';
+import HomeUsageHistory from '../components/home/UsageHistory';
 
 export default function Home() {
   return (
@@ -19,7 +18,7 @@ export default function Home() {
 
         {/* 겹치는 content */}
         <View style={styles.overlappingContent}>
-          <HomeUsageHisotry />
+          <HomeUsageHistory />
         </View>
 
         {/* 하단 네비게이션 바 */}
