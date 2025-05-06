@@ -26,3 +26,25 @@ export const createQR = async ({
     throw err.response?.data || {message: 'QR 생성 실패'};
   }
 };
+
+export const createSeatInformation = async ({
+  buildingName,
+  locationName,
+  seatCount,
+}: {
+  buildingName: string;
+  locationName: string;
+  seatCount: number;
+}) => {
+  try {
+    const response = await axios.post('/api/admin/seat/create', {
+      buildingName,
+      locationName,
+      seatCount,
+    });
+    return response.data;
+  } catch (error: unknown) {
+    const err = error as AxiosError;
+    throw err.response?.data || {message: '좌석 정보 생성 실패'};
+  }
+};

@@ -6,17 +6,20 @@ import SafeContainer from './SafeContainer';
 import ReservationLayout from '../components/reservation/Layout';
 import MultiflexMap from '../components/reservation/seatMap/Multiflex';
 import SwunimaruMap from '../components/reservation/seatMap/Swunimaru';
+import ChooseSeat from '../components/reservation/ChooseSeat';
 
 export default function Reservation() {
   return (
     <SafeContainer>
-      <ReservationLayout title="예약하기">
+      <ReservationLayout title="좌석 예약하기 - 슈니마루">
         <View style={styles.content}>
           <View style={styles.mapbox}>
             {/*<MultiflexMap />*/}
             <SwunimaruMap />
           </View>
-          <View style={styles.seatListBox} />
+          <View style={styles.seatListBox}>
+            <ChooseSeat />
+          </View>
         </View>
       </ReservationLayout>
     </SafeContainer>
@@ -54,9 +57,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: 10,
     //borderColor: '#C86462', // 테두리 색상
-    //borderWidth: 1, // 테두리 두께
+    borderWidth: 1, // 테두리 두께
     backgroundColor: '#fff',
-    //backgroundColor: '#C86462',
   },
   circle: {
     width: 15,
