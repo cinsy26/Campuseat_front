@@ -1,6 +1,7 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {MyInfo} from '../../api/home';
 
 import HomeInfoCase1 from './Case1';
 import HomeInfoCase2 from './Case2';
@@ -8,11 +9,68 @@ import HomeInfoCase3 from './Case3';
 import HomeInfoCase4 from './Case4';
 
 const HomeInfo = () => {
-  return (
-    <View style={styles.container}>
-      <HomeInfoCase4 />
-    </View>
-  );
+  const [nickname, setNickname] = useState('');
+  const [userStatus, setUserStatus] = useState('');
+  const [building, setBuilding] = useState('');
+  const [place, setPlace] = useState('');
+  const [seat, setSeat] = useState('');
+
+  useEffect(() => {
+    const fetchMyInfo = async () => {
+      try {
+        const data = await MyInfo();
+
+        setNickname(data.nickname);
+        setUserStatus(data.userStatus);
+
+        // DEFAULT가 아닌 경우 building/place/seat도 함께 저장
+        if (data.userStatus !== 'DEFAULT') {
+          setBuilding(data.building);
+          setPlace(data.place);
+          setSeat(data.seat);
+        }
+      } catch (error) {
+        console.error('Failed to load myinfo:', error);
+      }
+    };
+
+    fetchMyInfo();
+  }, []);
+
+  const renderContent = () => {
+    switch (userStatus) {
+      case 'DEFAULT':
+        return <HomeInfoCase1 nickname={nickname} />;
+      case 'RESERVED_SEAT':
+        return (
+          <HomeInfoCase2
+            building={building}
+            place={place}
+            seat={Number(seat)}
+          />
+        );
+      case 'USING_SEAT':
+        return (
+          <HomeInfoCase3
+            building={building}
+            place={place}
+            seat={Number(seat)}
+          />
+        );
+      case 'ON_BREAK':
+        return (
+          <HomeInfoCase4
+            building={building}
+            place={place}
+            seat={Number(seat)}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  return <View style={styles.container}>{renderContent()}</View>;
 };
 
 export default HomeInfo;

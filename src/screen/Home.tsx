@@ -5,6 +5,7 @@ import SafeContainer from './SafeContainer';
 
 import HomeInfo from '../components/home/HomeInfo';
 import HomeUsageHistory from '../components/home/UsageHistory';
+import SubNavBar from '../components/share/HomeSubNavBar';
 
 export default function Home() {
   return (
@@ -19,8 +20,6 @@ export default function Home() {
         <View style={styles.overlappingContent}>
           <HomeUsageHistory />
         </View>
-
-        {/* 하단 네비게이션 바 */}
       </View>
     </SafeContainer>
   );

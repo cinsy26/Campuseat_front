@@ -5,12 +5,18 @@ import {View, Text, StyleSheet} from 'react-native';
 import StatusTag from './StatusTag';
 import HomeButton from './HomeButton';
 
-const HomeInfoCase4 = () => {
+interface Props {
+  building: string;
+  place: string;
+  seat: number;
+}
+
+const HomeInfoCase4: React.FC<Props> = ({building, place, seat}) => {
   return (
     <View style={styles.container}>
       <View style={styles.textbox}>
         <View style={styles.row}>
-          <Text style={styles.title}>건물이름</Text>
+          <Text style={styles.title}>{building}</Text>
           <StatusTag
             status="외출중"
             borderColor="#2A3F89"
@@ -18,7 +24,10 @@ const HomeInfoCase4 = () => {
           />
         </View>
         <View style={styles.row}>
-          <Text style={styles.titlebold}>장소이름</Text>
+          <View style={styles.row}>
+            <Text style={styles.titlebold}>{place}</Text>
+            <Text style={styles.message}>{seat}</Text>
+          </View>
         </View>
       </View>
       <View style={styles.buttoncontainer}>

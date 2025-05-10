@@ -31,7 +31,7 @@ function AppNavigator(): React.JSX.Element {
       <View style={{flex: 1}}>
         <Stack.Navigator
           screenOptions={{headerShown: false}}
-          initialRouteName="CreateSeat">
+          initialRouteName="Reservation">
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Home} />
@@ -42,9 +42,8 @@ function AppNavigator(): React.JSX.Element {
         </Stack.Navigator>
 
         {/* 로그인/회원가입 화면이 아닐 때만 하단바 렌더링 */}
-        {!['Login', 'Signup'].includes(currentRouteName || '') && (
-          <MainNavBar />
-        )}
+        {currentRouteName &&
+          !['Login', 'Signup'].includes(currentRouteName) && <MainNavBar />}
       </View>
     </NavigationContainer>
   );

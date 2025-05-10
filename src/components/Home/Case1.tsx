@@ -1,26 +1,32 @@
 import React from 'react';
 import {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {View, Text, StyleSheet} from 'react-native';
 
 import UserInput from '../share/UserInput';
 import VerifyButton from '../user/VerifyButton';
 import HomeButton from './HomeButton';
 
-const HomeInfoCase1 = () => {
+const HomeInfoCase1 = ({nickname}: {nickname: string}) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
     <View style={styles.container}>
       <View style={styles.textbox}>
         <Text style={styles.title}>안녕하세요</Text>
         <View style={styles.row}>
-          <Text style={styles.titlebold}>김슈니</Text>
-          <Text style={styles.title}>님</Text>
+          <View style={styles.row}>
+            <Text style={styles.titlebold}>{nickname}</Text>
+            <Text style={[styles.title, styles.alignBottom]}>님</Text>
+          </View>
         </View>
       </View>
       <View style={styles.buttoncontainer}>
         <HomeButton
           label1="좌석 예약"
           label2="신고하기"
-          onPress1={() => {}}
+          onPress1={() => navigation.navigate('ReservationHome')}
           onPress2={() => {}}
         />
       </View>
@@ -34,21 +40,20 @@ const styles = StyleSheet.create({
   textbox: {
     width: '100%',
     height: '60%',
+    paddingTop: 30, // 위쪽 여백
     paddingHorizontal: 24, // 왼쪽 여백
     alignItems: 'flex-start', // 내부 요소들 왼쪽 정렬
     justifyContent: 'center', // 세로 방향 가운데 정렬
 
-    gap: 20,
-    //paddingTop: 20,
+    gap: 10,
     //paddingBottom: 20,
-
-    borderWidth: 1, // 테두리 두께
+    //borderWidth: 1, // 테두리 두께
   },
   buttoncontainer: {
     width: '100%',
     height: '40%',
     justifyContent: 'center', // 세로 방향 가운데 정렬
-    borderWidth: 1,
+    //borderWidth: 1,
   },
 
   container: {
@@ -82,5 +87,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end', // 또는 'baseline'도 가능
     gap: 4, // RN 0.71 이상에서만 동작, 아니면 marginRight 사용
+    //borderWidth: 1,
+  },
+  alignBottom: {
+    paddingBottom: 6, // nickname 텍스트의 크기와 조절해보세요
   },
 });
