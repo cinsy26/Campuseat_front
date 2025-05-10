@@ -1,6 +1,8 @@
 import React from 'react';
-import {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import type {RootStackParamList} from '../../navigator/types.ts';
 
 import HomeIcon from '../../assets/icon/MainNavBarIcon/home.tsx';
 import MenuIcon from '../../assets/icon/MainNavBarIcon/menu.tsx';
@@ -9,24 +11,33 @@ import MypageIcon from '../../assets/icon/MainNavBarIcon/mypage.tsx';
 import CameraIcon from '../../assets/icon/MainNavBarIcon/camera.tsx';
 
 const MainNavBar = () => {
+  type Navigation = NativeStackNavigationProp<RootStackParamList>;
+  const navigation = useNavigation<Navigation>();
   return (
     <View style={styles.container}>
-      <View style={styles.tab}>
+      <TouchableOpacity
+        style={styles.tab}
+        onPress={() => navigation.navigate('Home')}>
         <HomeIcon width={30} height={30} />
-      </View>
-      <View style={styles.tab}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.tab}
+        onPress={() => navigation.navigate('ReservationHome')}>
         <MenuIcon width={30} height={30} />
-      </View>
+      </TouchableOpacity>
       <View style={styles.tab}>
         <CameraIcon width={30} height={30} />
       </View>
-      <View style={styles.tab}>
+      <TouchableOpacity
+        style={styles.tab}
+        onPress={() => navigation.navigate('Report')}>
         <ReportIcon width={26} height={26} />
-      </View>
-
-      <View style={styles.tab}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.tab}
+        onPress={() => navigation.navigate('MyPage')}>
         <MypageIcon width={30} height={30} />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

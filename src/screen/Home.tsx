@@ -4,7 +4,6 @@ import {View, /*Text,*/ StyleSheet} from 'react-native';
 import SafeContainer from './SafeContainer';
 
 import HomeInfo from '../components/home/HomeInfo';
-import MainNavBar from '../components/share/MainNavBar';
 import HomeUsageHistory from '../components/home/UsageHistory';
 
 export default function Home() {
@@ -22,7 +21,6 @@ export default function Home() {
         </View>
 
         {/* 하단 네비게이션 바 */}
-        <MainNavBar />
       </View>
     </SafeContainer>
   );
