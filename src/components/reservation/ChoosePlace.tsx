@@ -2,6 +2,7 @@ import React from 'react';
 //import {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {SeatTypeColor} from '../../util/color';
+import BookmarkIcon from '../../assets/icon/Reservation/BookmarkIcon';
 
 type ChoosePlaceProps = {
   place: string;
@@ -20,12 +21,23 @@ const ChoosePlace = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.placeContainer}>
-        <View style={[styles.circle, {backgroundColor: circleColor}]} />
-        <Text style={styles.place}>{place}</Text>
-        <Text style={styles.text}>{location}</Text>
+      <View style={styles.textContainer}>
+        <View style={styles.placeContainer}>
+          <View style={[styles.circle, {backgroundColor: circleColor}]} />
+          <Text style={styles.place}>{place}</Text>
+          <Text style={styles.text}>{location}</Text>
+        </View>
+        <Text style={styles.text}>이용 가능한 좌석 수 : {availableSeats}</Text>
       </View>
-      <Text style={styles.text}>이용 가능한 좌석 수 : {availableSeats}</Text>
+      <View style={styles.iconContainer}>
+        <BookmarkIcon
+          width={30}
+          height={30}
+          color="#000"
+          strokeWidth={1}
+          fillColor="#FFE100"
+        />
+      </View>
     </View>
   );
 };
@@ -36,9 +48,8 @@ const styles = StyleSheet.create({
   container: {
     //height: '40%',
     width: '100%',
-    gap: 10,
     borderRadius: 10,
-    flexDirection: 'column', // 세로 정렬 유지
+    flexDirection: 'row', // 세로 정렬 유지
     //alignItems: 'center',
     justifyContent: 'center',
 
@@ -48,6 +59,17 @@ const styles = StyleSheet.create({
     borderWidth: 1, // 테두리 두께
 
     backgroundColor: '#fff',
+  },
+  textContainer: {
+    width: '80%',
+    //borderWidth: 1,
+    gap: 10,
+  },
+  iconContainer: {
+    width: '20%',
+    //borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   placeContainer: {
     //이 안 컴포넌트 가로배치

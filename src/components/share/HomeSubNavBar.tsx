@@ -59,19 +59,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column', //세로 배치
     alignItems: 'center', //자식 요소들을 가로 중앙 정렬
 
-    borderWidth: 1,
+    //borderWidth: 1,
   },
   tabContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    gap: 20,
   },
   tab: {
     width: '40%',
     height: 50,
     flexDirection: 'row',
-    borderWidth: 1, // 테두리 두께
+    //borderWidth: 1, // 테두리 두께
     justifyContent: 'center', // 세로 중앙 정렬
     alignItems: 'center', // 가로 중앙 정렬
   },

@@ -31,7 +31,7 @@ function AppNavigator(): React.JSX.Element {
       <View style={{flex: 1}}>
         <Stack.Navigator
           screenOptions={{headerShown: false}}
-          initialRouteName="Reservation">
+          initialRouteName="Login">
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Home} />

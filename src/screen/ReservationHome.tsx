@@ -1,11 +1,46 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 //import {useState} from 'react';
 import {View, /*Text,*/ StyleSheet} from 'react-native';
 import SafeContainer from './SafeContainer';
 import ChoosePlace from '../components/reservation/ChoosePlace';
 import ReservationLayout from '../components/reservation/Layout';
+import {fetchPlace} from '../api/reservation';
+
+interface PlaceInfo {
+  building: string;
+  place: string;
+  availableSeats: number;
+}
 
 export default function ReservationHome() {
+  const [placeList, setPlaceList] = useState<PlaceInfo[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchPlace();
+        setPlaceList(data);
+      } catch (error) {
+        console.error('장소 정보 로딩 실패:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const getPlaceStatus = (placeName: string): number => {
+    if (placeName === '슈니나래') {
+      return 1;
+    }
+    if (placeName === '슈니마루') {
+      return 2;
+    }
+    if (placeName === '멀티플렉스') {
+      return 1;
+    }
+    return 0;
+  };
+
   return (
     <SafeContainer>
       <ReservationLayout title="예약하기">
@@ -16,36 +51,16 @@ export default function ReservationHome() {
               <Text style={styles.text}>예약 가능한 좌석</Text>
             </View>*/}
           </View>
-          <ChoosePlace
-            place="멀티플렉스"
-            location="도서관 1층"
-            availableSeats={3}
-            placeStatus={1}
-          />
-          <ChoosePlace
-            place="슈니마루"
-            location="도서관 1층"
-            availableSeats={0}
-            placeStatus={2}
-          />
-          <ChoosePlace
-            place="슈니나래"
-            location="도서관 5층"
-            availableSeats={2}
-            placeStatus={1}
-          />
-          <ChoosePlace
-            place="멀티미디어 라운지"
-            location="도서관 1층"
-            availableSeats={5}
-            placeStatus={0}
-          />
-          <ChoosePlace
-            place="소셜러닝 라운지"
-            location="도서관 1층"
-            availableSeats={8}
-            placeStatus={0}
-          />
+
+          {placeList.map((place, index) => (
+            <ChoosePlace
+              key={index}
+              place={place.place}
+              location={place.building}
+              availableSeats={place.availableSeats}
+              placeStatus={getPlaceStatus(place.place)}
+            />
+          ))}
         </View>
       </ReservationLayout>
     </SafeContainer>
