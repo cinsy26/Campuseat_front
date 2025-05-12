@@ -1,36 +1,73 @@
 import React from 'react';
 //import {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {SeatTypeColor} from '../../util/color';
+import {View, Text, StyleSheet, Alert, Pressable} from 'react-native';
+//import {SeatTypeColor} from '../../util/color';
+import {reserveSeat} from '../../api/reservation';
 
 type ChoosePlaceProps = {
   place: string;
   location: string;
-  availableSeats: number;
-  placeStatus: number;
+  seatName: string;
+  seatStatus: 'AVAILABLE' | 'OCCUPIED' | 'SELECTED' | 'OTHER';
+  seatId: number;
+  refreshSeats: () => void; // 👈 추가
 };
 
 const ChooseSeat = ({
   place,
   location,
-  availableSeats,
-  placeStatus,
+  seatName,
+  seatStatus,
+  seatId,
+  refreshSeats,
 }: ChoosePlaceProps) => {
-  const circleColor = SeatTypeColor(placeStatus);
+  const isAvailable = seatStatus === 'AVAILABLE';
+
+  const handlePress = () => {
+    if (isAvailable) {
+      Alert.alert('예약하시겠습니까?', `${seatName} 좌석을 예약하시겠습니까?`, [
+        {
+          text: '취소',
+          style: 'cancel',
+        },
+        {
+          text: '확인',
+          onPress: async () => {
+            try {
+              await reserveSeat(seatId);
+              Alert.alert('예약 성공', `${seatName} 좌석이 예약되었습니다.`);
+              refreshSeats();
+            } catch (error) {
+              Alert.alert('예약 실패', '잠시 후 다시 시도해주세요.');
+            }
+          },
+        },
+      ]);
+    }
+  };
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
         <View style={styles.placeContainer}>
-          <View style={[styles.circle, {backgroundColor: circleColor}]} />
-          <Text style={styles.place}>{place}</Text>
+          {/*<View style={[styles.circle, {backgroundColor: circleColor}]} />*/}
+          {/*<Text style={styles.place}>{place}</Text>*/}
           <Text style={styles.text}>{location}</Text>
         </View>
-        <Text style={styles.place}>N번 좌석</Text>
+        <Text style={styles.place}>{seatName} 좌석</Text>
       </View>
-      <View style={styles.reservationStatus}>
-        <Text style={styles.place}>예약 불가</Text>
-      </View>
+      <Pressable
+        style={styles.reservationStatus}
+        onPress={handlePress}
+        disabled={!isAvailable}>
+        <Text
+          style={[
+            styles.statusText,
+            {color: isAvailable ? '#6B8E4E' : '#C86462'}, // 초록 or 회색
+          ]}>
+          {isAvailable ? '예약 하기' : '예약 불가'}
+        </Text>
+      </Pressable>
     </View>
   );
 };
@@ -101,5 +138,9 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center', // 세로 가운데 정렬
     alignItems: 'center',
+  },
+  statusText: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

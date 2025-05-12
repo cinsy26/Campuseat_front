@@ -1,6 +1,6 @@
 import React from 'react';
 //import {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {SeatTypeColor} from '../../util/color';
 import BookmarkIcon from '../../assets/icon/Reservation/BookmarkIcon';
 
@@ -9,6 +9,7 @@ type ChoosePlaceProps = {
   location: string;
   availableSeats: number;
   placeStatus: number;
+  onPress?: () => void;
 };
 
 const ChoosePlace = ({
@@ -16,11 +17,12 @@ const ChoosePlace = ({
   location,
   availableSeats,
   placeStatus,
+  onPress,
 }: ChoosePlaceProps) => {
   const circleColor = SeatTypeColor(placeStatus);
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.textContainer}>
         <View style={styles.placeContainer}>
           <View style={[styles.circle, {backgroundColor: circleColor}]} />
@@ -38,7 +40,7 @@ const ChoosePlace = ({
           fillColor="#FFE100"
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

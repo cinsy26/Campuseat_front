@@ -1,12 +1,17 @@
 import React, {useState, useEffect} from 'react';
 //import {useState} from 'react';
 import {View, /*Text,*/ StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import type {RootStackParamList} from '../navigator/types';
+
 import SafeContainer from './SafeContainer';
 import ChoosePlace from '../components/reservation/ChoosePlace';
 import ReservationLayout from '../components/reservation/Layout';
 import {fetchPlace} from '../api/reservation';
 
 interface PlaceInfo {
+  placeId: number;
   building: string;
   place: string;
   availableSeats: number;
@@ -14,6 +19,12 @@ interface PlaceInfo {
 
 export default function ReservationHome() {
   const [placeList, setPlaceList] = useState<PlaceInfo[]>([]);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const handleChoosePlace = (placeId: number) => {
+    navigation.navigate('Reservation', {placeId});
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +46,7 @@ export default function ReservationHome() {
     if (placeName === '슈니마루') {
       return 2;
     }
-    if (placeName === '멀티플렉스') {
+    if (placeName === '멀티플렉스존') {
       return 1;
     }
     return 0;
@@ -59,6 +70,7 @@ export default function ReservationHome() {
               location={place.building}
               availableSeats={place.availableSeats}
               placeStatus={getPlaceStatus(place.place)}
+              onPress={() => handleChoosePlace(place.placeId)} // placeId 넘기기
             />
           ))}
         </View>

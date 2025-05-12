@@ -3,7 +3,7 @@ export type RootStackParamList = {
   Signup: undefined;
   Home: undefined;
   ReservationHome: undefined;
-  Reservation: undefined;
+  Reservation: {placeId: number};
   CreateQr: undefined;
   CreateSeat: undefined;
 };
