@@ -1,6 +1,8 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+import {useCallback} from 'react';
 import {MyInfo} from '../../api/home';
 
 import HomeInfoCase1 from './Case1';
@@ -15,6 +17,7 @@ const HomeInfo = () => {
   const [place, setPlace] = useState('');
   const [seat, setSeat] = useState('');
 
+  /*
   useEffect(() => {
     const fetchMyInfo = async () => {
       try {
@@ -36,19 +39,35 @@ const HomeInfo = () => {
 
     fetchMyInfo();
   }, []);
+*/
+
+  useFocusEffect(
+    useCallback(() => {
+      const fetchMyInfo = async () => {
+        try {
+          const data = await MyInfo();
+          setNickname(data.nickname);
+          setUserStatus(data.userStatus);
+          if (data.userStatus !== 'DEFAULT') {
+            setBuilding(data.building);
+            setPlace(data.place);
+            setSeat(data.seat);
+          }
+        } catch (error) {
+          console.error('Failed to load myinfo:', error);
+        }
+      };
+
+      fetchMyInfo();
+    }, []),
+  );
 
   const renderContent = () => {
     switch (userStatus) {
       case 'DEFAULT':
         return <HomeInfoCase1 nickname={nickname} />;
       case 'RESERVED_SEAT':
-        return (
-          <HomeInfoCase2
-            building={building}
-            place={place}
-            seat={Number(seat)}
-          />
-        );
+        return <HomeInfoCase2 building={building} place={place} seat={seat} />;
       case 'USING_SEAT':
         return (
           <HomeInfoCase3

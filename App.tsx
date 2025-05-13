@@ -14,6 +14,7 @@ import ReservationHome from './src/screen/ReservationHome';
 import Reservation from './src/screen/Reservation';
 import CreateQr from './src/screen/adminScreen/CreateQr';
 import CreateSeat from './src/screen/adminScreen/CreateSeat';
+import QRScannerScreen from './src/screen/Camera';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,7 @@ function AppNavigator(): React.JSX.Element {
           <Stack.Screen name="Reservation" component={Reservation} />
           <Stack.Screen name="CreateQr" component={CreateQr} />
           <Stack.Screen name="CreateSeat" component={CreateSeat} />
+          <Stack.Screen name="QRScannerScreen" component={QRScannerScreen} />
         </Stack.Navigator>
 
         {/* 로그인/회원가입 화면이 아닐 때만 하단바 렌더링 */}

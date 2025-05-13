@@ -8,7 +8,7 @@ import HomeButton from './HomeButton';
 interface Props {
   building: string;
   place: string;
-  seat: number;
+  seat: string;
 }
 
 const HomeInfoCase2: React.FC<Props> = ({building, place, seat}) => {
@@ -26,7 +26,7 @@ const HomeInfoCase2: React.FC<Props> = ({building, place, seat}) => {
         <View style={styles.row}>
           <View style={styles.row}>
             <Text style={styles.titlebold}>{place}</Text>
-            <Text style={styles.message}>{seat}</Text>
+            <Text style={styles.title}>{seat} 좌석</Text>
           </View>
         </View>
       </View>

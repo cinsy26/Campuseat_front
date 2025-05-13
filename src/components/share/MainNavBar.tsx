@@ -25,9 +25,11 @@ const MainNavBar = () => {
         onPress={() => navigation.navigate('ReservationHome')}>
         <MenuIcon width={30} height={30} />
       </TouchableOpacity>
-      <View style={styles.tab}>
+      <TouchableOpacity
+        style={styles.tab}
+        onPress={() => navigation.navigate('QRScannerScreen')}>
         <CameraIcon width={30} height={30} />
-      </View>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.tab}
         onPress={() => navigation.navigate('Report')}>

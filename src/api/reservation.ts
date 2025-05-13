@@ -33,3 +33,20 @@ export const reserveSeat = async (seatId: number) => {
     throw axiosError;
   }
 };
+
+//좌석 확정(QR코드 정보 전송)
+
+export const confirmSeat = async (data: {
+  building: string;
+  location: string;
+  seat: string;
+}) => {
+  try {
+    const response = await axios.post('/api/reservation/confirmseat', data);
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    console.error('좌석 확정 실패:', axiosError.message);
+    throw axiosError;
+  }
+};

@@ -6,4 +6,5 @@ export type RootStackParamList = {
   Reservation: {placeId: number};
   CreateQr: undefined;
   CreateSeat: undefined;
+  QRScannerScreen: undefined;
 };
