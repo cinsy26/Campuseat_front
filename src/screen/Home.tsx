@@ -3,8 +3,8 @@ import React from 'react';
 import {View, /*Text,*/ StyleSheet} from 'react-native';
 import SafeContainer from './SafeContainer';
 
-import HomeInfo from '../components/home/HomeInfo';
-import HomeUsageHistory from '../components/home/UsageHistory';
+import HomeInfo from '../components/Home/HomeInfo';
+import HomeUsageHistory from '../components/Home/UsageHistory';
 import SubNavBar from '../components/share/HomeSubNavBar';
 
 export default function Home() {
