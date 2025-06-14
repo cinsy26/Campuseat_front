@@ -43,7 +43,7 @@ export default function Login() {
               placeholder="비밀번호를 입력하세요"
               secureTextEntry={true}
             />
-            <Text style={styles.message}>{errorMessage}</Text>{' '}
+            <Text style={styles.message}>{errorMessage}</Text>
           </View>
           <View style={styles.buttonwrapper}>
             <VerifyButton
