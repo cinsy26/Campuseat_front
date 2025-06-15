@@ -45,11 +45,16 @@ export default function Reservation() {
 
   return (
     <SafeContainer>
-      <ReservationLayout title="좌석 예약하기 - 슈니마루">
-        <View style={styles.content}>
+      <ReservationLayout
+        title={
+          seatList.length > 0
+            ? `좌석 예약하기 - ${seatList[0].placeName}`
+            : '좌석 예약하기'
+        }>
+            <View style={styles.content}>
           <View style={styles.mapbox}>
-            {placeId === 1 && <SwunimaruMap />}
-            {placeId === 3 && <MultiflexMap />}
+            {placeId === 1 && <MultiflexMap />}
+            {placeId === 2 && <SwunimaruMap />}
           </View>
           <ScrollView
             style={styles.seatListBox}

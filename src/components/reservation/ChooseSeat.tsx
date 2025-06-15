@@ -51,7 +51,7 @@ const ChooseSeat = ({
       <View style={styles.container}>
         <View style={styles.placeContainer}>
           {/*<View style={[styles.circle, {backgroundColor: circleColor}]} />*/}
-          {/*<Text style={styles.place}>{place}</Text>*/}
+          <Text style={styles.place}>{place}</Text>
           <Text style={styles.text}>{location}</Text>
         </View>
         <Text style={styles.place}>{seatName} 좌석</Text>
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   place: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#000',
   },
   text: {
     fontSize: 15,

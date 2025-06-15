@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   place: {
     fontSize: 20,
     fontWeight: 'bold',
+     color: '#000',
   },
   text: {
     fontSize: 15,
